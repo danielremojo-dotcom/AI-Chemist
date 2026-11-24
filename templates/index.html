@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#0b0b0b">
+    <meta name="description" content="AI-Chemist is a General Chemistry tutor. Ask questions, balance equations, and learn step by step.">
+
+    <title>AI-Chemist</title>
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧪</text></svg>">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+    <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+
+<body>
+
+    <main class="app">
+
+        <header class="header">
+            <div>
+                <h1>AI-Chemist</h1>
+                <p>General Chemistry Tutor</p>
+            </div>
+
+            <button id="new-chat" class="ghost-btn" type="button">New chat</button>
+        </header>
+
+       
+        <section
+            id="chat"
+            class="chat"
+            role="log"
+            aria-label="Conversation"
+            aria-live="off"
+        ></section>
+
+        <p id="status" class="sr-only" role="status" aria-live="polite"></p>
+
+        <form id="chat-form" class="input-area" autocomplete="off">
+            <label for="message" class="sr-only">Ask a chemistry question</label>
+
+            <textarea
+                id="message"
+                name="message"
+                rows="1"
+                maxlength="2000"
+                placeholder="Ask a chemistry question..."
+                enterkeyhint="send"
+                autocomplete="off"
+                autocapitalize="sentences"
+            ></textarea>
+
+            <button type="submit" id="send">Send</button>
+        </form>
+
+    </main>
+
+</body>
+</html>

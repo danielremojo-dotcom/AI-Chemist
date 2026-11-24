@@ -17,12 +17,18 @@ app = Flask(
     template_folder=os.path.join(BASE_DIR, "templates"),
     static_folder=os.path.join(BASE_DIR, "static"),
 )
+
+# Render sits behind a proxy: this makes request.remote_addr the real visitor IP
+# (needed for the per-IP rate limit to work).
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1)
 
 print("Current working directory:", os.getcwd())
 print("Templates folder exists:", os.path.exists(os.path.join(BASE_DIR, "templates")))
 print("Index exists:", os.path.exists(os.path.join(BASE_DIR, "templates", "index.html")))
 
+# On Render: set GEMINI_API_KEY under Environment.
+# On your own device: either set the same variable, or put the key in api_key.txt
+# next to app.py (never upload api_key.txt).
 API_KEY = os.environ.get("GEMINI_API_KEY")
 if not API_KEY:
     key_path = os.path.join(BASE_DIR, "api_key.txt")
@@ -448,7 +454,8 @@ def generate_with_fallback(contents):
 
 
 
-THINKING_BUDGET = 0  
+THINKING_BUDGET = 0   # 0 = no hidden "thinking" before the answer (faster start).
+                      # If your model rejects 0, set to None to leave it default.
 
 _config_kwargs = {
     "system_instruction": SYSTEM_PROMPT,
@@ -484,13 +491,12 @@ def stream_reply(contents):
             last_error = RuntimeError(f"{model} returned an empty response")
 
         except Exception as e:
-        print(f"/chat failed: {e}")
-        detail = str(e).replace("All models failed. Last error: ", "")[:120]
-        return jsonify({
-            "error": f"DEBUG: {detail}"
-        }), 503
+            last_error = e
+            print(f"{model} stream failed: {e}")
+            cooldowns[model] = time.time() + COOLDOWN_SECONDS
+
             if started:
-                raise  
+                raise   # cannot switch models in the middle of an answer
 
     raise RuntimeError(f"All models failed. Last error: {last_error}")
 
@@ -568,13 +574,15 @@ def chat():
 
     gen = stream_reply(contents)
 
-  
+    # Wait for the first piece so a total failure still returns a clean 503.
     try:
         first = next(gen)
     except Exception as e:
         print(f"/chat failed: {e}")
+        # TEMPORARY DEBUG: shows the real error on the page. Remove once fixed.
+        detail = str(e).replace("All models failed. Last error: ", "")[:120]
         return jsonify({
-            "error": "The tutor is busy right now. Please try again."
+            "error": f"DEBUG: {detail}"
         }), 503
 
     def body():
@@ -597,7 +605,7 @@ def chat():
 
 
 if __name__ == "__main__":
-    
+    # Local testing only. On Render, gunicorn starts the app instead.
     app.run(
         host="0.0.0.0",
         port=int(os.environ.get("PORT", 5000)),

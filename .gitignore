@@ -1,0 +1,6 @@
+api_key.txt
+chat_history.txt
+AI_Chemist_*.txt
+__pycache__/
+*.pyc
+.env

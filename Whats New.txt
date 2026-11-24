@@ -1,0 +1,125 @@
+⚗ Mr. AI-Chemist 2.1 (Web Edition Patch) — What's New
+
+A big upgrade! AI-Chemist now remembers your conversation,
+shows beautifully formatted chemistry, follows your class
+lesson, and keeps working even when an AI model is busy.
+
+
+✨ NEW FEATURES
+
+• Beautiful chemical formulas and math
+  Formulas, ions, equations and math are now properly
+  typeset (H₂O, SO₄²⁻, 2H₂ + O₂ → 2H₂O, fractions, powers
+  of ten) instead of plain text.
+
+• Formatted replies
+  Answers can now use bold labels, bullet points and
+  numbered steps for easier reading.
+
+• Step-by-step problem solving format
+  Every calculation is answered in the same clear order:
+  Given → Formula → Working Formula → Working Solution →
+  Final Answer, with a quick "does this make sense?" check.
+  Answers are rounded to 2 decimal places (or follow sig fig
+  / scientific notation rules when the problem asks for it).
+
+• Built-in class lesson
+  The tutor now uses your class lesson as its main
+  reference, covering:
+    - Matter and its states
+    - Separation of mixtures (9 methods)
+    - Measurement, accuracy and precision
+    - Scientific notation and significant figures
+    - Density
+    - Ions, chemical bonds and Lewis structures
+    - Molecular and structural formulas
+    - Naming ions, polyatomic ions, ionic compounds,
+      molecular compounds and cations
+
+• Beginner-friendly explanations
+  Every step is explained in simple words, with no skipped
+  steps, as if you're seeing the topic for the first time.
+
+• Conversation memory
+  The tutor now remembers what you talked about, so
+  follow-ups like "why?" or "show me again" work. Your chat
+  is also saved in your browser and restored when you come
+  back.
+
+• New chat button
+  Start a fresh conversation anytime from the header.
+
+• Starter questions
+  Tap a suggestion on the welcome screen to get going fast:
+  "Balance: Fe + O2 -> Fe2O3", "Explain molarity with an
+  example", and more.
+
+• Copy button
+  Copy any reply with one tap.
+
+• Multi-line message box
+  The input grows as you type. Press Enter to send, or
+  Shift + Enter for a new line.
+
+• Animated "thinking" dots
+  Replaced the old "Thinking..." text with a smooth dot
+  animation.
+
+• Typing effect
+  Replies appear gradually. Click the reply or press Esc to
+  show it all at once.
+
+• Smarter error handling
+  If a message fails, your question is put back in the box
+  so you can send it again. Requests that take too long time
+  out with a clear message.
+
+
+🔧 IMPROVEMENTS
+
+• Automatic backup models
+  If one AI model is busy or fails, the app tries another
+  model automatically, with a short cooldown for the ones
+  that failed.
+
+• More consistent answers
+  Lower temperature setting for steadier, more accurate
+  replies.
+
+• Updated "off-topic" reply
+  The tutor now says: "I cannot answer questions unrelated
+  to general chemistry."
+
+• Stronger protection
+  The tutor is better at ignoring attempts to override its
+  instructions or reveal its prompt.
+
+• Message limits
+  Questions are capped at 2,000 characters, and each person
+  is limited to 20 messages per minute to keep the app fast
+  for everyone.
+
+• Safer server
+  Debug mode is turned off, chat logging is thread-safe,
+  and input is checked more carefully.
+
+• Updated design
+  Better readability, a new color theme, tidier tables and
+  code blocks, and a responsive layout that fits phones with
+  notches and on-screen keyboards.
+
+• Accessibility
+  Screen reader support, keyboard focus outlines, and
+  reduced-motion support for people who prefer less
+  animation.
+
+• Added a chemistry flask 🧪 browser tab icon.
+
+
+📝 NOTES
+
+• The page now loads KaTeX, marked and DOMPurify from the
+  internet (jsDelivr), so an internet connection is needed
+  for formatting to display correctly.
+• Files needed: app.py, templates/index.html,
+  static/style.css and static/script.js.
